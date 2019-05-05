@@ -1,6 +1,5 @@
 package com.spring.web.controller;
 
-import com.spring.web.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Map;
 
 @Controller
