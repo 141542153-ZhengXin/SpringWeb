@@ -24,6 +24,7 @@
         <logback.version>1.1.7</logback.version>
         <logback-spring.version>0.1.5</logback-spring.version>
         <jackson.version>2.9.2</jackson.version>
+        <springfox.version>2.6.1</springfox.version>
     </properties>
 
     <repositories>
@@ -85,7 +86,7 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- *****logback start**** -->
+        <!-- logback -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -111,7 +112,7 @@
             <artifactId>logback-ext-spring</artifactId>
             <version>${logback-spring.version}</version>
         </dependency>
-        <!-- ****logback end**** -->
+        <!-- logback -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -127,6 +128,18 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <!-- config -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <!-- config -->
     </dependencies>
 
     <build>
