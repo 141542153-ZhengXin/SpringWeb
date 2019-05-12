@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/swagger")
-@Api(value = "SwaggerController", description = "SpringWeb整合Swagger")
+@Api(value = "SwaggerController", description = "Spring整合Swagger")
 public class SwaggerController {
 
     private final static Logger logger = LoggerFactory.getLogger(SwaggerController.class);
 
+    /**
+     * swagger learning
+     */
     @GetMapping("/swaggerExample")
     @ResponseBody
     @ApiOperation(value = "swaggerExample")

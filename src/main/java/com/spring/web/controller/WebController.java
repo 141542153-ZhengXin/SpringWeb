@@ -1,5 +1,6 @@
 package com.spring.web.controller;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/web")
+@Api(value = "WebController", description = "Spring Web Learn")
 public class WebController {
 
     private final static Logger logger = LoggerFactory.getLogger(WebController.class);
