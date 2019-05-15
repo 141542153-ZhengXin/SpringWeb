@@ -3,7 +3,7 @@ package com.spring.web.controller;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -216,4 +216,20 @@ public class WebController {
     public void requestBodyExample(@RequestBody(required = false) String id) {
         logger.info("run requestBodyExample - id:" + id);
     }
+
+    /**
+     * HttpEntity 类似于 @RequestBody 和 @ResponseBody 。除了访问请求和响应主体外，
+     * HttpEntity（以及特定于响应的子类 ResponseEntity ）还允许访问请求和响应头
+     * @param requestEntity
+     * @return
+     */
+    @PostMapping(value = "/httpEntityExample")
+    public ResponseEntity<String> httpEntityExample(HttpEntity<byte[]> requestEntity){
+        String requestHeader = requestEntity.getHeaders().getFirst("MyRequestHeader");
+        byte[] requestBody = requestEntity.getBody();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("MyResponseHeader", "MyValue");
+        return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.CREATED);
+    }
+
 }
