@@ -47,6 +47,12 @@ public class WebController2 {
 
     /*--------------------------------------------------------------------------------------*/
 
+    /**
+     * @ModelAttribute("user")中"user"指定别名
+     * @param user1
+     * @param model
+     * @return
+     */
     /*@ModelAttribute("user")
     public User getUser(Model model) {
         User user = new User("1", "Tom");
@@ -63,6 +69,12 @@ public class WebController2 {
 
     /*--------------------------------------------------------------------------------------*/
 
+    /**
+     * 这样就相当于model.addAttribute(“userName”, userName);，
+     * 此时对应的页面就是 @RequestMapping 的值 modelAttributeExample3，交给页面解析后就是modelAttributeExample3.jsp
+     * @param userName
+     * @return
+     */
     @RequestMapping(value = "/modelAttributeExample3")
     @ModelAttribute("userName")
     public String modelAttributeExample3(@RequestParam(required = false) String userName) {
