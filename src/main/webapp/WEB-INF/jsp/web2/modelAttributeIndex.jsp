@@ -28,5 +28,10 @@
         用户名:<input type="text" name="userName" value="Jack">
         <button type="submit">submit</button>
     </form>
+    <h1>modelAttributeExampl4</h1>
+    <form action="modelAttributeExample4" method="post">
+        用户名:<input type="text" name="userName" value="Jack">
+        <button type="submit">submit</button>
+    </form>
 </body>
 </html>

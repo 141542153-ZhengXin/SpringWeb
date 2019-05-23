@@ -7,10 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/web2")
@@ -33,13 +38,12 @@ public class WebController2 {
         logger.info("@ModelAttribute - user:" + user);
         model.addAttribute("user", user);
     }*/
-
-    @RequestMapping("modelAttributeIndex")
+    @RequestMapping(value = "modelAttributeIndex")
     public String modelAttributeIndex() {
         return "web2/modelAttributeIndex";
     }
 
-    @RequestMapping("/modelAttributeExample")
+    @RequestMapping(value = "/modelAttributeExample")
     public String modelAttributeExample(ModelMap model) {
         logger.info("user:" + model.get("user"));
         return "web2/modelAttributeExample";
@@ -48,10 +52,10 @@ public class WebController2 {
     /*--------------------------------------------------------------------------------------*/
 
     /**
-     * @ModelAttribute("user")中"user"指定别名
      * @param user1
      * @param model
      * @return
+     * @ModelAttribute("user")中"user"指定别名
      */
     /*@ModelAttribute("user")
     public User getUser(Model model) {
@@ -59,8 +63,7 @@ public class WebController2 {
         logger.info("@ModelAttribute - user:" + user);
         return user;
     }*/
-
-    @RequestMapping("/modelAttributeExample2")
+    @RequestMapping(value = "/modelAttributeExample2")
     public String modelAttributeExample2(@ModelAttribute("user") User user1, Model model) {
         logger.info("user:" + model.toString());
         logger.info("user1:" + user1);
@@ -72,6 +75,7 @@ public class WebController2 {
     /**
      * 这样就相当于model.addAttribute(“userName”, userName);，
      * 此时对应的页面就是 @RequestMapping 的值 modelAttributeExample3，交给页面解析后就是modelAttributeExample3.jsp
+     *
      * @param userName
      * @return
      */
@@ -80,5 +84,19 @@ public class WebController2 {
     public String modelAttributeExample3(@RequestParam(required = false) String userName) {
         logger.info("userName:" + userName);
         return userName;
+    }
+
+    /*--------------------------------------------------------------------------------------*/
+
+    @RequestMapping(value = "/modelAttributeExample4")
+    public String modelAttributeExample4(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            List<ObjectError> allErrors = result.getAllErrors();
+            for (int i = 0; i < allErrors.size(); i++) {
+                logger.error("error:"+allErrors.get(i));
+            }
+            return "web2/modelAttributeErrorExample";
+        }
+        return "web2/modelAttributeExample4";
     }
 }

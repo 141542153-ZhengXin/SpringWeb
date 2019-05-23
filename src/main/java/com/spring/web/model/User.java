@@ -1,6 +1,10 @@
 package com.spring.web.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class User {
+
+    @NotBlank(message = "userId不能为空")
     private String userId;
     private String userName;
 
