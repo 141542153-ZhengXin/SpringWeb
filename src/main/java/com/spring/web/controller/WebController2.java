@@ -73,11 +73,13 @@ public class WebController2 {
     /*--------------------------------------------------------------------------------------*/
 
     /**
-     * 这样就相当于model.addAttribute(“userName”, userName);，
+     * 1.这样就相当于model.addAttribute(“userName”, userName);，
      * 此时对应的页面就是 @RequestMapping 的值 modelAttributeExample3，交给页面解析后就是modelAttributeExample3.jsp
+     * 2.@ModelAttribute 注释也可用于 @RequestMapping 方法。在这种情况下，
      *
      * @param userName
      * @return
+     * @RequestMapping 方法的返回值被解释为模型属性而不是视图名称。然后根据视图名称约定派生视图名称，就像返回 void 的方法一样
      */
     @RequestMapping(value = "/modelAttributeExample3")
     @ModelAttribute("userName")
@@ -88,15 +90,50 @@ public class WebController2 {
 
     /*--------------------------------------------------------------------------------------*/
 
+    /**
+     * 1.方法参数上的 @ModelAttribute 表示应从模型中检索参数。如果模型中不存在，则应首先实例化参数，然后将其添加到模型中。
+     * 一旦出现在模型中，参数的字段应该从具有匹配名称的所有请求参数中填充。
+     * 2.由于数据绑定，可能存在错误，例如缺少必填字段或类型转换错误。
+     * 要检查此类错误，请在 @ModelAttribute 参数后立即添加 BindingResult 参数
+     * 使用 BindingResult ，您可以检查是否发现错误在哪种情况下，通常会在Spring的 <errors> 表单标记的帮助下呈现错误的相同表单。
+     *
+     * @param user
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/modelAttributeExample4")
     public String modelAttributeExample4(@Valid @ModelAttribute("user") User user, BindingResult result) {
         if (result.hasErrors()) {
             List<ObjectError> allErrors = result.getAllErrors();
             for (int i = 0; i < allErrors.size(); i++) {
-                logger.error("error:"+allErrors.get(i));
+                logger.error("error:" + allErrors.get(i));
             }
             return "web2/modelAttributeErrorExample";
         }
         return "web2/modelAttributeExample4";
     }
+
+    /*--------------------------------------------------------------------------------------*/
+
+    /*@ModelAttribute
+    public User getUser(Model model) {
+        User user = new User("1","Tom");
+        return user;
+    }*/
+
+    /**
+     * 在某些情况下，在没有数据绑定的情况下访问模型中的属性可能很有用。
+     * 对于这种情况，您可以将 Model 注入控制器，或者在注释上使用 binding 标志
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/modelAttributeExample5")
+    public String modelAttributeExample5(@ModelAttribute(binding = false, value = "user") User user, Model model, BindingResult result) {
+        if (result.hasErrors()) {
+            return "web2/modelAttributeErrorExample";
+        }
+        model.addAttribute("user", user);
+        return "web2/modelAttributeExample5";
+    }
+
 }
