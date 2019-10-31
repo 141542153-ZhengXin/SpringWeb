@@ -23,7 +23,7 @@
         <slf4j.version>1.7.21</slf4j.version>
         <logback.version>1.1.7</logback.version>
         <logback-spring.version>0.1.5</logback-spring.version>
-        <jackson.version>2.9.2</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <springfox.version>2.6.1</springfox.version>
     </properties>
 
